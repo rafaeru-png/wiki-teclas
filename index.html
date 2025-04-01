@@ -3,54 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tecladista AI | Assistente Virtual para Teclados</title>
-    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/chat.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>Teclado Ideal</title>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-    <!-- Header -->
-    <header class="main-header">
-        <div class="container">
-            <h1><i class="fas fa-keyboard"></i> Tecladista<span>AI</span></h1>
-            <nav>
-                <a href="#como-funciona">Como Funciona</a>
-                <a href="#modelos">Modelos</a>
-                <button id="loginBtn">Área do Músico</button>
-            </nav>
+<body class="bg-gradient-to-br from-gray-100 to-blue-500 min-h-screen flex items-center justify-center p-6">
+    <div class="bg-white shadow-2xl rounded-3xl p-10 max-w-lg w-full text-center border border-gray-200 transform transition-all hover:scale-105">
+        <h1 class="text-5xl font-extrabold text-blue-800 mb-6 drop-shadow-lg">🎹 Teclado Ideal</h1>
+        <p class="text-gray-600 text-lg mb-6">Descreva seu uso musical e receba uma recomendação personalizada.</p>
+        <div class="space-y-4">
+            <input type="text" id="question" class="w-full p-4 border rounded-lg focus:ring-4 focus:ring-blue-600 outline-none text-lg shadow-md placeholder-gray-400 transition-all hover:shadow-lg" placeholder="Ex: Preciso de um teclado para tocar na igreja...">
+            <button onclick="getRecommendation()" class="w-full bg-gradient-to-r from-blue-600 to-blue-800 text-white py-3 rounded-lg text-xl font-semibold hover:from-blue-700 hover:to-blue-900 transition-all shadow-lg">🔍 Buscar</button>
         </div>
-    </header>
-
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="container">
-            <div class="hero-content">
-                <h2>Encontre o teclado perfeito com IA</h2>
-                <p>Nosso assistente virtual analisa suas necessidades e recomenda o melhor equipamento</p>
-                <button id="startChatBtn" class="btn-primary">
-                    <i class="fas fa-comment-dots"></i> Começar Consulta
-                </button>
-            </div>
-        </div>
-    </section>
-
-    <!-- Chatbot Container (inicialmente oculto) -->
-    <div class="chatbot-container" id="chatbotContainer">
-        <div class="chat-header">
-            <h3>Assistente Tecladista AI</h3>
-            <button id="closeChatBtn"><i class="fas fa-times"></i></button>
-        </div>
-        <div class="chat-messages" id="chatMessages"></div>
-        <div class="chat-input">
-            <input type="text" id="userInput" placeholder="Digite sua dúvida...">
-            <button id="sendMessageBtn"><i class="fas fa-paper-plane"></i></button>
-        </div>
+        <div id="response" class="mt-6 p-5 bg-gray-100 shadow-md rounded-xl text-left text-gray-800 min-h-[120px] hidden border border-gray-300"></div>
     </div>
-
-    <!-- Integração OpenAI -->
-    <script src="https://cdn.jsdelivr.net/npm/openai@4.0.0/dist/openai.min.js"></script>
-    <script src="js/chatgpt.js" type="module"></script>
-    <script src="js/main.js"></script>
+    <script>
+        async function getRecommendation() {
+            const question = document.getElementById('question').value;
+            const responseBox = document.getElementById('response');
+            responseBox.classList.remove('hidden');
+            responseBox.innerHTML = "⏳ Carregando...";
+            
+            try {
+                const res = await fetch("https://api.openai.com/v1/chat/completions", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Authorization": "Bearer SUA_CHAVE_API_AQUI"
+                    },
+                    body: JSON.stringify({
+                        model: "gpt-3.5-turbo",
+                        messages: [{role: "user", content: question}]
+                    })
+                });
+                const data = await res.json();
+                responseBox.innerHTML = `<p class='text-lg font-medium'>🎶 ${data.choices[0].message.content}</p>`;
+            } catch (error) {
+                responseBox.innerHTML = "❌ Erro ao buscar recomendação.";
+            }
+        }
+    </script>
 </body>
 </html>
