@@ -19,20 +19,30 @@ exports.handler = async (event) => {
             })
         });
 
-        const data = await response.json();
+        // Verifica se a resposta está vazia ou inválida antes de tentar converter para JSON
+        const text = await response.text();
+        console.log("🔹 Resposta da API (bruta):", text);
 
-        console.log("🔹 API Response:", data); // Logando a resposta no console para debugging
+        if (!text) {
+            return { statusCode: 500, body: JSON.stringify({ error: "Resposta vazia da API." }) };
+        }
 
-        if (!response.ok) {
-            return {
-                statusCode: response.status,
-                body: JSON.stringify({ error: data.error || "Erro desconhecido." })
-            };
+        let data;
+        try {
+            data = JSON.parse(text);
+        } catch (jsonError) {
+            console.error("❌ Erro ao converter resposta para JSON:", jsonError);
+            return { statusCode: 500, body: JSON.stringify({ error: "Erro ao processar resposta da API." }) };
+        }
+
+        // Verifica se há um erro explícito da OpenAI
+        if (data.error) {
+            return { statusCode: 500, body: JSON.stringify({ error: data.error.message || "Erro desconhecido da API." }) };
         }
 
         return {
             statusCode: 200,
-            body: JSON.stringify({ message: data.choices[0].message.content })
+            body: JSON.stringify({ message: data.choices[0]?.message?.content || "Sem resposta da OpenAI." })
         };
     } catch (error) {
         console.error("❌ Erro na função:", error);
