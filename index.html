@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tecladista Pro</title>
-    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <title>Teclado Ideal</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-gradient-to-br from-gray-100 to-blue-500 min-h-screen flex items-center justify-center p-6">
@@ -19,25 +18,34 @@
     </div>
     <script>
         async function getRecommendation() {
-    const question = document.getElementById('question').value;
-    const responseBox = document.getElementById('response');
-    responseBox.classList.remove('hidden');
-    responseBox.innerHTML = "⏳ Carregando...";
-    
-    try {
-        const res = await fetch("/.netlify/functions/chatgpt", { // Chamada via função serverless
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({ question })
-        });
-        const data = await res.json();
-        responseBox.innerHTML = `<p class='text-lg font-medium'>🎶 ${data.response}</p>`;
-    } catch (error) {
-        responseBox.innerHTML = "❌ Erro ao buscar recomendação.";
-    }
-}
+            const question = document.getElementById('question').value;
+            const responseBox = document.getElementById('response');
+            responseBox.classList.remove('hidden');
+            responseBox.innerHTML = "⏳ Carregando...";
+            
+            try {
+                const res = await fetch("https://api-inference.huggingface.co/models/mistralai/Mistral-7B-Instruct", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Authorization": "Bearer SUA_CHAVE_API_HUGGINGFACE"
+                    },
+                    body: JSON.stringify({
+                        inputs: question,
+                        parameters: { max_length: 200 }
+                    })
+                });
+                
+                const data = await res.json();
+                if (data && data.length > 0 && data[0].generated_text) {
+                    responseBox.innerHTML = `<p class='text-lg font-medium'>🎶 ${data[0].generated_text}</p>`;
+                } else {
+                    responseBox.innerHTML = "❌ Erro ao buscar recomendação.";
+                }
+            } catch (error) {
+                responseBox.innerHTML = "❌ Erro ao buscar recomendação.";
+            }
+        }
     </script>
 </body>
 </html>

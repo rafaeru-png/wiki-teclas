@@ -1,51 +1,28 @@
-const fetch = require('node-fetch');
+import fetch from 'node-fetch';
 
-exports.handler = async (event) => {
+export async function handler(event) {
     try {
-        const { question } = JSON.parse(event.body);
-        if (!question) {
-            return { statusCode: 400, body: JSON.stringify({ error: "Pergunta não fornecida." }) };
-        }
+        const { input } = JSON.parse(event.body);
 
-        const response = await fetch("https://api.openai.com/v1/chat/completions", {
+        const response = await fetch("https://api-inference.huggingface.co/models/mistralai/Mistral-7B-Instruct", {
             method: "POST",
             headers: {
-                "Content-Type": "application/json",
-                "Authorization": `Bearer ${process.env.OPENAI_API_KEY}`
+                "Authorization": `Bearer ${process.env.HUGGINGFACE_API_KEY}`,
+                "Content-Type": "application/json"
             },
-            body: JSON.stringify({
-                model: "gpt-3.5-turbo",
-                messages: [{ role: "user", content: question }]
-            })
+            body: JSON.stringify({ inputs: input })
         });
 
-        // Verifica se a resposta está vazia ou inválida antes de tentar converter para JSON
-        const text = await response.text();
-        console.log("🔹 Resposta da API (bruta):", text);
-
-        if (!text) {
-            return { statusCode: 500, body: JSON.stringify({ error: "Resposta vazia da API." }) };
-        }
-
-        let data;
-        try {
-            data = JSON.parse(text);
-        } catch (jsonError) {
-            console.error("❌ Erro ao converter resposta para JSON:", jsonError);
-            return { statusCode: 500, body: JSON.stringify({ error: "Erro ao processar resposta da API." }) };
-        }
-
-        // Verifica se há um erro explícito da OpenAI
-        if (data.error) {
-            return { statusCode: 500, body: JSON.stringify({ error: data.error.message || "Erro desconhecido da API." }) };
-        }
+        const data = await response.json();
 
         return {
             statusCode: 200,
-            body: JSON.stringify({ message: data.choices[0]?.message?.content || "Sem resposta da OpenAI." })
+            body: JSON.stringify({ response: data }),
         };
     } catch (error) {
-        console.error("❌ Erro na função:", error);
-        return { statusCode: 500, body: JSON.stringify({ error: "Erro interno no servidor." }) };
+        return {
+            statusCode: 500,
+            body: JSON.stringify({ error: "Erro ao acessar a API." }),
+        };
     }
-};
+}
