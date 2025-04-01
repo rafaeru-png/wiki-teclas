@@ -1,0 +1,20 @@
+{
+    "teclados": [
+        {
+            "id": 1,
+            "nome": "Nord Stage 3 88HP",
+            "tipo": "Profissional",
+            "preco": "R$ 35.999",
+            "especificacoes": {
+                "teclas": 88,
+                "peso": "Hammer Action",
+                "polifonia": "120 vozes",
+                "sons": "Mais de 1000"
+            },
+            "melhorPara": ["Turnês", "Estúdio profissional"],
+            "vantagens": ["Durabilidade", "Customização"],
+            "desvantagens": ["Preço", "Complexidade"],
+            "imagem": "nord-stage3.jpg"
+        }
+    ]
+}
