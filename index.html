@@ -17,35 +17,7 @@
         <div id="response" class="mt-6 p-5 bg-gray-100 shadow-md rounded-xl text-left text-gray-800 min-h-[120px] hidden border border-gray-300"></div>
     </div>
     <script>
-        async function getRecommendation() {
-            const question = document.getElementById('question').value;
-            const responseBox = document.getElementById('response');
-            responseBox.classList.remove('hidden');
-            responseBox.innerHTML = "⏳ Carregando...";
-            
-            try {
-                const res = await fetch("https://api-inference.huggingface.co/models/mistralai/Mistral-7B-Instruct", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                        "Authorization": "Bearer SUA_CHAVE_API_HUGGINGFACE"
-                    },
-                    body: JSON.stringify({
-                        inputs: question,
-                        parameters: { max_length: 200 }
-                    })
-                });
-                
-                const data = await res.json();
-                if (data && data.length > 0 && data[0].generated_text) {
-                    responseBox.innerHTML = `<p class='text-lg font-medium'>🎶 ${data[0].generated_text}</p>`;
-                } else {
-                    responseBox.innerHTML = "❌ Erro ao buscar recomendação.";
-                }
-            } catch (error) {
-                responseBox.innerHTML = "❌ Erro ao buscar recomendação.";
-            }
-        }
+      
     </script>
 </body>
 </html>
