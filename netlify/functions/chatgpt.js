@@ -21,11 +21,21 @@ exports.handler = async (event) => {
 
         const data = await response.json();
 
+        console.log("🔹 API Response:", data); // Logando a resposta no console para debugging
+
+        if (!response.ok) {
+            return {
+                statusCode: response.status,
+                body: JSON.stringify({ error: data.error || "Erro desconhecido." })
+            };
+        }
+
         return {
             statusCode: 200,
             body: JSON.stringify({ message: data.choices[0].message.content })
         };
     } catch (error) {
-        return { statusCode: 500, body: JSON.stringify({ error: "Erro ao acessar a API." }) };
+        console.error("❌ Erro na função:", error);
+        return { statusCode: 500, body: JSON.stringify({ error: "Erro interno no servidor." }) };
     }
 };
