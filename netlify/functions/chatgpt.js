@@ -15,8 +15,19 @@ export async function handler(event) {
             body: JSON.stringify({ inputs: input })
         });
 
-        const data = await response.json();
-        console.log("🔹 Resposta da API (bruta):", JSON.stringify(data));
+        const text = await response.text();  // Pega a resposta bruta
+        console.log("🔹 Resposta da API (bruta):", text);
+
+        let data;
+        try {
+            data = JSON.parse(text);
+        } catch (jsonError) {
+            console.error("❌ Erro ao converter resposta para JSON:", jsonError);
+            return {
+                statusCode: 500,
+                body: JSON.stringify({ error: "Erro ao processar a resposta da API." }),
+            };
+        }
 
         return {
             statusCode: 200,
