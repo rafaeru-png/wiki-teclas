@@ -1,8 +1,5 @@
 import fetch from 'node-fetch';
 
-import { createRequire } from 'module';
-const require = createRequire(import.meta.url);
-
 exports.handler = async (event) => {
     try {
         const { question } = JSON.parse(event.body);
