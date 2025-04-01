@@ -16,7 +16,7 @@
 
 body {
     background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)),
-                url('../images/background/nord-stage3.jpg') center/cover fixed;
+                url('../images/background/nord-stage3.png') center/cover fixed;
     color: var(--light);
     line-height: 1.6;
 }
