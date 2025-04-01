@@ -3,84 +3,54 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tecladista Pro | Seu Guia Definitivo</title>
+    <title>Tecladista AI | Assistente Virtual para Teclados</title>
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/chat.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
     <!-- Header -->
     <header class="main-header">
-        <div class="header-content">
-            <h1><span class="logo-icon">🎹</span>TecladistaPro</h1>
-            <nav class="main-nav">
-                <ul>
-                    <li><a href="index.html">Início</a></li>
-                    <li><a href="modelos/teclados-digitais.html">Modelos</a></li>
-                    <li><a href="guia-compras.html">Guia de Compras</a></li>
-                    <li><a href="#contato">Contato</a></li>
-                </ul>
+        <div class="container">
+            <h1><i class="fas fa-keyboard"></i> Tecladista<span>AI</span></h1>
+            <nav>
+                <a href="#como-funciona">Como Funciona</a>
+                <a href="#modelos">Modelos</a>
+                <button id="loginBtn">Área do Músico</button>
             </nav>
-            <button class="menu-mobile"><i class="fas fa-bars"></i></button>
         </div>
     </header>
 
     <!-- Hero Section -->
     <section class="hero">
-        <div class="hero-content">
-            <h2>Encontre o Teclado Perfeito</h2>
-            <p>Análises técnicas, comparações e guias para músicos profissionais</p>
-            <form class="search-box">
-                <input type="text" placeholder="Buscar por modelo, marca ou característica...">
-                <button type="submit"><i class="fas fa-search"></i></button>
-            </form>
-        </div>
-    </section>
-
-    <!-- Destaques -->
-    <section class="destaques">
         <div class="container">
-            <article class="destaque-card">
-                <img src="images/teclados/nord-stage3.jpg" alt="Nord Stage 3">
-                <div class="card-content">
-                    <h3>Top Profissional</h3>
-                    <p>Nord Stage 3 88HP</p>
-                    <a href="modelos/nord-stage3.html" class="btn">Ver Análise</a>
-                </div>
-            </article>
-
-            <article class="destaque-card">
-                <img src="images/teclados/yamaha-p125.jpg" alt="Yamaha P-125">
-                <div class="card-content">
-                    <h3>Melhor Custo-Benefício</h3>
-                    <p>Yamaha P-125</p>
-                    <a href="modelos/yamaha-p125.html" class="btn">Comparar</a>
-                </div>
-            </article>
+            <div class="hero-content">
+                <h2>Encontre o teclado perfeito com IA</h2>
+                <p>Nosso assistente virtual analisa suas necessidades e recomenda o melhor equipamento</p>
+                <button id="startChatBtn" class="btn-primary">
+                    <i class="fas fa-comment-dots"></i> Começar Consulta
+                </button>
+            </div>
         </div>
     </section>
 
-    <!-- Footer -->
-    <footer class="main-footer">
-        <div class="footer-content">
-            <div class="footer-section">
-                <h4>Sobre Nós</h4>
-                <p>Especialistas em teclados desde 2010</p>
-            </div>
-            <div class="footer-section">
-                <h4>Contato</h4>
-                <p>contato@tecladistapro.com.br</p>
-            </div>
-            <div class="footer-section">
-                <h4>Redes Sociais</h4>
-                <div class="social-icons">
-                    <a href="#"><i class="fab fa-youtube"></i></a>
-                    <a href="#"><i class="fab fa-instagram"></i></a>
-                </div>
-            </div>
+    <!-- Chatbot Container (inicialmente oculto) -->
+    <div class="chatbot-container" id="chatbotContainer">
+        <div class="chat-header">
+            <h3>Assistente Tecladista AI</h3>
+            <button id="closeChatBtn"><i class="fas fa-times"></i></button>
         </div>
-    </footer>
+        <div class="chat-messages" id="chatMessages"></div>
+        <div class="chat-input">
+            <input type="text" id="userInput" placeholder="Digite sua dúvida...">
+            <button id="sendMessageBtn"><i class="fas fa-paper-plane"></i></button>
+        </div>
+    </div>
 
+    <!-- Integração OpenAI -->
+    <script src="https://cdn.jsdelivr.net/npm/openai@4.0.0/dist/openai.min.js"></script>
+    <script src="js/chatgpt.js" type="module"></script>
     <script src="js/main.js"></script>
 </body>
 </html>

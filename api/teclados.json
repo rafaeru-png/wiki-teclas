@@ -1,0 +1,259 @@
+{
+    "teclados": [
+      {
+        "id": 1,
+        "nome": "Yamaha P-125A",
+        "tipo": "digital",
+        "categoria": "piano_digital",
+        "preco": "R$ 5.999",
+        "nivel": ["iniciante", "intermediario"],
+        "melhor_para": ["estudo", "home_studio", "apresentacoes_leves"],
+        "destaques": [
+          "Teclado GHS com ação martelada",
+          "Sons de piano Yamaha CFX e Bosendorfer",
+          "Saída de áudio USB"
+        ],
+        "especificacoes": {
+          "teclas": 88,
+          "tipo_teclas": "ponderadas",
+          "polifonia": 192,
+          "sons": 24,
+          "conexoes": ["USB", "LINE OUT", "PEDAL", "AUX IN"],
+          "dimensoes": "1326 x 166 x 295 mm",
+          "peso": "11,8 kg"
+        },
+        "pros": [
+          "Ótima relação custo-benefício",
+          "Som de piano realista",
+          "Portátil"
+        ],
+        "cons": [
+          "Poucos sons adicionais",
+          "Sem saída XLR"
+        ],
+        "imagem": "yamaha-p125a.jpg",
+        "ano_lancamento": 2018,
+        "disponivel": true
+      },
+      {
+        "id": 2,
+        "nome": "Nord Stage 3 88HP",
+        "tipo": "profissional",
+        "categoria": "workstation",
+        "preco": "R$ 35.999",
+        "nivel": ["avancado", "profissional"],
+        "melhor_para": ["palco", "estudio_profissional", "tours"],
+        "destaques": [
+          "Teclado Hammer Action Portable",
+          "Seções independentes para piano, órgão e sintetizador",
+          "Biblioteca de sons expansível"
+        ],
+        "especificacoes": {
+          "teclas": 88,
+          "tipo_teclas": "hammer_action",
+          "polifonia": "120 (piano)/40 (órgão)",
+          "sons": "1000+",
+          "conexoes": ["XLR", "MIDI", "USB", "PEDAL"],
+          "dimensoes": "1282 x 111 x 358 mm",
+          "peso": "18,5 kg"
+        },
+        "pros": [
+          "Durabilidade excepcional",
+          "Personalização avançada",
+          "Som de alta qualidade"
+        ],
+        "cons": [
+          "Preço elevado",
+          "Complexo para iniciantes"
+        ],
+        "imagem": "nord-stage3.jpg",
+        "ano_lancamento": 2017,
+        "disponivel": true
+      },
+      {
+        "id": 3,
+        "nome": "Roland Fantom-08",
+        "tipo": "workstation",
+        "categoria": "workstation",
+        "preco": "R$ 12.999",
+        "nivel": ["intermediario", "avancado"],
+        "melhor_para": ["producao_musical", "palco", "estudio"],
+        "destaques": [
+          "Teclado PHA-4 com sensor escapamento",
+          "Motor de som ZEN-Core",
+          "Sequenciador integrado"
+        ],
+        "especificacoes": {
+          "teclas": 88,
+          "tipo_teclas": "ponderadas_escapamento",
+          "polifonia": 256,
+          "sons": "3000+",
+          "conexoes": ["HDMI", "USB", "MIDI", "CV/GATE"],
+          "dimensoes": "1445 x 334 x 128 mm",
+          "peso": "22 kg"
+        },
+        "pros": [
+          "Versatilidade extrema",
+          "Ótimos efeitos integrados",
+          "Atualizações frequentes"
+        ],
+        "cons": [
+          "Curva de aprendizado",
+          "Pesado para transporte"
+        ],
+        "imagem": "roland-fantom08.jpg",
+        "ano_lancamento": 2021,
+        "disponivel": true
+      },
+      {
+        "id": 4,
+        "nome": "Arturia KeyLab 61 MKII",
+        "tipo": "controlador",
+        "categoria": "midi_controller",
+        "preco": "R$ 3.499",
+        "nivel": ["iniciante", "intermediario", "avancado"],
+        "melhor_para": ["producao_musical", "home_studio", "live_eletronico"],
+        "destaques": [
+          "Teclado semi-ponderado com aftertouch",
+          "Inclui Analog Lab V",
+          "9 sliders motorizados"
+        ],
+        "especificacoes": {
+          "teclas": 61,
+          "tipo_teclas": "semi_ponderadas",
+          "polifonia": "ilimitada (via software)",
+          "sons": "nenhum (controlador MIDI)",
+          "conexoes": ["USB", "MIDI", "PEDAL"],
+          "dimensoes": "940 x 295 x 85 mm",
+          "peso": "5,2 kg"
+        },
+        "pros": [
+          "Excelente integração com DAWs",
+          "Build quality premium",
+          "Bundle de software valioso"
+        ],
+        "cons": [
+          "Nenhum som interno",
+          "Teclas não ponderadas"
+        ],
+        "imagem": "arturia-keylab61.jpg",
+        "ano_lancamento": 2019,
+        "disponivel": true
+      },
+      {
+        "id": 5,
+        "nome": "Korg PA-1000",
+        "tipo": "arranjador",
+        "categoria": "teclado_arranjador",
+        "preco": "R$ 10.999",
+        "nivel": ["intermediario", "avancado"],
+        "melhor_para": ["musico_solo", "eventos", "bandas_covers"],
+        "destaques": [
+          "Estilos profissionais e acompanhamentos inteligentes",
+          "Tela touchscreen de 7 polegadas",
+          "Gravação direto em USB"
+        ],
+        "especificacoes": {
+          "teclas": 61,
+          "tipo_teclas": "semi_ponderadas",
+          "polifonia": 128,
+          "sons": "850+ estilos",
+          "conexoes": ["USB", "XLR", "MIC IN"],
+          "dimensoes": "1052 x 128 x 406 mm",
+          "peso": "12,5 kg"
+        },
+        "pros": [
+          "Acompanhamentos realistas",
+          "Ótimo para shows ao vivo",
+          "Interface intuitiva"
+        ],
+        "cons": [
+          "Caro para um arranjador",
+          "Sons de piano limitados"
+        ],
+        "imagem": "korg-pa1000.jpg",
+        "ano_lancamento": 2017,
+        "disponivel": true
+      },
+      {
+        "id": 6,
+        "nome": "Yamaha DX7 (Vintage)",
+        "tipo": "vintage",
+        "categoria": "sintetizador",
+        "preco": "R$ 4.500 (usado)",
+        "nivel": ["intermediario", "avancado"],
+        "melhor_para": ["coletivos", "estudio", "musica_retro"],
+        "destaques": [
+          "Síntese FM de 6 operadores",
+          "Ícone dos anos 80",
+          "Som característico"
+        ],
+        "especificacoes": {
+          "teclas": 61,
+          "tipo_teclas": "semi_ponderadas",
+          "polifonia": 16,
+          "sons": "32 patches (expansível)",
+          "conexoes": ["MIDI OUT", "PEDAL"],
+          "dimensoes": "1005 x 415 x 122 mm",
+          "peso": "18 kg"
+        },
+        "pros": [
+          "Som vintage único",
+          "Durabilidade lendária",
+          "Cult status"
+        ],
+        "cons": [
+          "Interface complexa",
+          "Sem capacidade multitimbral",
+          "Peças difíceis de encontrar"
+        ],
+        "imagem": "yamaha-dx7.jpg",
+        "ano_lancamento": 1983,
+        "disponivel": false
+      }
+    ],
+    "categorias": [
+      {
+        "id": "piano_digital",
+        "nome": "Pianos Digitais",
+        "descricao": "Focados em emular pianos acústicos com teclados ponderados"
+      },
+      {
+        "id": "workstation",
+        "nome": "Workstations",
+        "descricao": "Estações completas para produção musical"
+      },
+      {
+        "id": "midi_controller",
+        "nome": "Controladores MIDI",
+        "descricao": "Sem sons internos, controlam softwares e hardwares"
+      },
+      {
+        "id": "teclado_arranjador",
+        "nome": "Teclados Arranjadores",
+        "descricao": "Com acompanhamentos automáticos para músicos solo"
+      },
+      {
+        "id": "sintetizador",
+        "nome": "Sintetizadores",
+        "descricao": "Para criação e manipulação de timbres"
+      }
+    ],
+    "faixas_preco": [
+      {
+        "id": "ate_3k",
+        "nome": "Até R$ 3.000",
+        "modelos": [1, 4]
+      },
+      {
+        "id": "3k_a_10k",
+        "nome": "R$ 3.000 - 10.000",
+        "modelos": [1, 3, 5]
+      },
+      {
+        "id": "acima_10k",
+        "nome": "Acima de R$ 10.000",
+        "modelos": [2, 3]
+      }
+    ]
+  }
