@@ -1,0 +1,55 @@
+{
+    "equipamentos": [
+      {
+        "nome": "Yamaha P-125",
+        "tipo": "Teclado Digital",
+        "novo_usado": "Novo",
+        "polifonia": 64,
+        "oitavas": 7,
+        "tipoTecla": "semi-pesada",
+        "conexoes": ["USB", "MIDI"],
+        "controles": { "knobs": 0, "pads": 0, "faders": 0, "botoes": 2 },
+        "utilizacoes": ["igreja", "home"],
+        "equipComplementar": [],
+        "peso": 12,
+        "funcionalidades": [
+          "88 teclas com ação graduada",
+          "Variação de timbres (piano, órgão, cordas)"
+        ],
+        "pontosFortes": [
+          "Boa sensibilidade ao toque",
+          "Qualidade de som realista"
+        ],
+        "problemasCronicos": [
+          "Limitações na polyfonia em configurações mais exigentes"
+        ],
+        "faixaPreco": "Médio",
+        "observacoes": "Ideal para apresentações em igrejas e estúdios domésticos."
+      },
+      {
+        "nome": "Novation Launchkey 49",
+        "tipo": "Controlador MIDI",
+        "novo_usado": "Novo",
+        "polifonia": 0,
+        "oitavas": 0,
+        "tipoTecla": "N/A",
+        "conexoes": ["USB", "MIDI"],
+        "controles": { "knobs": 8, "pads": 16, "faders": 0, "botoes": 0 },
+        "utilizacoes": ["estudio", "live"],
+        "equipComplementar": ["Notebook", "Software de produção"],
+        "peso": 3,
+        "funcionalidades": [
+          "Interface intuitiva para produção musical"
+        ],
+        "pontosFortes": [
+          "Excelente para produção musical"
+        ],
+        "problemasCronicos": [
+          "Não é ideal para performances solo sem computador"
+        ],
+        "faixaPreco": "Médio",
+        "observacoes": "Ideal para produtores que utilizam DAWs."
+      }
+    ]
+  }
+  
