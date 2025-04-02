@@ -1,664 +1,417 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Teclado Ideal - Login e Wizard</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-      /* Estilos para o Wizard e Tooltips */
-      .step {
-        display: none;
-      }
-      .step.active {
-        display: block;
-      }
-      .progress-bar {
-        height: 0.75rem;
-        background-color: #3b82f6;
-        border-radius: 9999px;
-        transition: width 0.3s;
-      }
-      .tooltip {
-        position: relative;
-        cursor: pointer;
-      }
-      .tooltip .tooltiptext {
-        visibility: hidden;
-        width: 220px;
-        background-color: #333;
-        color: #fff;
-        text-align: center;
-        border-radius: 6px;
-        padding: 0.5rem;
-        position: absolute;
-        z-index: 1;
-        bottom: 125%;
-        left: 50%;
-        margin-left: -110px;
-        opacity: 0;
-        transition: opacity 0.3s;
-        font-size: 0.8rem;
-      }
-      .tooltip:hover .tooltiptext {
-        visibility: visible;
-        opacity: 1;
-      }
-    </style>
-  </head>
-  <body class="bg-gray-100">
-    <!-- Seção de Login -->
-    <div
-      id="loginDiv"
-      class="min-h-screen flex items-center justify-center p-6"
-    >
-      <div class="bg-white p-6 rounded shadow-md w-full max-w-sm">
-        <h2 class="text-2xl font-bold mb-4 text-center">Login</h2>
-        <form id="loginForm" class="space-y-4">
-          <input
-            id="email"
-            type="email"
-            placeholder="E-mail"
-            class="w-full p-3 border rounded"
-          />
-          <input
-            id="password"
-            type="password"
-            placeholder="Senha"
-            class="w-full p-3 border rounded"
-          />
-          <button
-            type="submit"
-            class="w-full bg-blue-600 text-white p-3 rounded hover:bg-blue-700"
-          >
-            Entrar
-          </button>
-        </form>
-        <p class="mt-4 text-center">
-          Não tem conta?
-          <a href="#" id="showSignUp" class="text-blue-600 hover:underline"
-            >Cadastre-se</a
-          >
-        </p>
-      </div>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Teclado Ideal - Login e Wizard</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    /* Estilos para o Wizard e Tooltips */
+    .step { display: none; }
+    .step.active { display: block; }
+    .progress-bar { height: 0.75rem; background-color: #3b82f6; border-radius: 9999px; transition: width 0.3s; }
+    .tooltip { position: relative; cursor: pointer; }
+    .tooltip .tooltiptext {
+      visibility: hidden;
+      width: 220px;
+      background-color: #333;
+      color: #fff;
+      text-align: center;
+      border-radius: 6px;
+      padding: 0.5rem;
+      position: absolute;
+      z-index: 1;
+      bottom: 125%;
+      left: 50%;
+      margin-left: -110px;
+      opacity: 0;
+      transition: opacity 0.3s;
+      font-size: 0.8rem;
+    }
+    .tooltip:hover .tooltiptext { visibility: visible; opacity: 1; }
+  </style>
+</head>
+<body class="bg-gray-100">
+  <!-- Seção de Login -->
+  <div id="loginDiv" class="min-h-screen flex items-center justify-center p-6">
+    <div class="bg-white p-6 rounded shadow-md w-full max-w-sm">
+      <h2 class="text-2xl font-bold mb-4 text-center">Login</h2>
+      <form id="loginForm" class="space-y-4">
+        <input id="email" type="email" placeholder="E-mail" class="w-full p-3 border rounded">
+        <input id="password" type="password" placeholder="Senha" class="w-full p-3 border rounded">
+        <button type="submit" class="w-full bg-blue-600 text-white p-3 rounded hover:bg-blue-700">Entrar</button>
+      </form>
+      <p class="mt-4 text-center">Não tem conta? <a href="#" id="showSignUp" class="text-blue-600 hover:underline">Cadastre-se</a></p>
     </div>
+  </div>
 
-    <!-- Seção de Cadastro (inicialmente escondida) -->
-    <div
-      id="signUpDiv"
-      class="min-h-screen flex items-center justify-center p-6 hidden"
-    >
-      <div class="bg-white p-6 rounded shadow-md w-full max-w-sm">
-        <h2 class="text-2xl font-bold mb-4 text-center">Cadastro</h2>
-        <form id="signUpForm" class="space-y-4">
-          <input
-            id="signUpEmail"
-            type="email"
-            placeholder="E-mail"
-            class="w-full p-3 border rounded"
-          />
-          <input
-            id="signUpPassword"
-            type="password"
-            placeholder="Senha"
-            class="w-full p-3 border rounded"
-          />
-          <button
-            type="submit"
-            class="w-full bg-green-600 text-white p-3 rounded hover:bg-green-700"
-          >
-            Cadastrar
-          </button>
-        </form>
-        <p class="mt-4 text-center">
-          <a href="#" id="showLogin" class="text-blue-600 hover:underline"
-            >Já tenho uma conta</a
-          >
-        </p>
-      </div>
+  <!-- Seção de Cadastro (inicialmente escondida) -->
+  <div id="signUpDiv" class="min-h-screen flex items-center justify-center p-6 hidden">
+    <div class="bg-white p-6 rounded shadow-md w-full max-w-sm">
+      <h2 class="text-2xl font-bold mb-4 text-center">Cadastro</h2>
+      <form id="signUpForm" class="space-y-4">
+        <input id="signUpEmail" type="email" placeholder="E-mail" class="w-full p-3 border rounded">
+        <input id="signUpPassword" type="password" placeholder="Senha" class="w-full p-3 border rounded">
+        <button type="submit" class="w-full bg-green-600 text-white p-3 rounded hover:bg-green-700">Cadastrar</button>
+      </form>
+      <p class="mt-4 text-center"><a href="#" id="showLogin" class="text-blue-600 hover:underline">Já tenho uma conta</a></p>
     </div>
+  </div>
 
-    <!-- Seção do Wizard (inicialmente escondida) -->
-    <div
-      id="wizardDiv"
-      class="hidden min-h-screen flex items-center justify-center p-6"
-    >
-      <div
-        class="bg-white shadow-2xl rounded-3xl p-8 max-w-xl w-full border border-gray-200"
-      >
-        <h1 class="text-4xl font-bold text-blue-800 mb-6 text-center">
-          🎹 Encontre seu Equipamento Ideal
-        </h1>
+  <!-- Seção do Wizard (inicialmente escondida) -->
+  <div id="wizardDiv" class="hidden min-h-screen flex items-center justify-center p-6">
+    <div class="bg-white shadow-2xl rounded-3xl p-8 max-w-xl w-full border border-gray-200">
+      <h1 class="text-4xl font-bold text-blue-800 mb-6 text-center">🎹 Encontre seu Equipamento Ideal</h1>
+      
+      <!-- Barra de Progresso -->
+      <div class="w-full bg-gray-300 rounded-full mb-6">
+        <div id="progress" class="progress-bar" style="width: 20%"></div>
+      </div>
 
-        <!-- Barra de Progresso -->
-        <div class="w-full bg-gray-300 rounded-full mb-6">
-          <div id="progress" class="progress-bar" style="width: 20%"></div>
+      <!-- Formulário Wizard -->
+      <form id="wizardForm" class="space-y-6">
+        <!-- Etapa 1: Utilização -->
+        <div class="step active" id="step1">
+          <h2 class="text-2xl font-semibold mb-4">
+            Utilização Principal 
+            <span class="tooltip text-blue-500">ℹ️
+              <span class="tooltiptext">Selecione o ambiente principal de uso: culto, estúdio, performance ou uso doméstico.</span>
+            </span>
+          </h2>
+          <select id="utilizacao" class="w-full p-4 border rounded-lg focus:ring-4 focus:ring-blue-600">
+            <option value="todos">Todos</option>
+            <option value="igreja">Culto / Igreja</option>
+            <option value="estudio">Estúdio / Produção</option>
+            <option value="live">Performance ao vivo</option>
+            <option value="home">Uso doméstico</option>
+          </select>
+          <div class="mt-4 flex justify-end">
+            <button type="button" class="bg-blue-600 text-white py-2 px-6 rounded hover:bg-blue-700" onclick="nextStep(1)">Próximo</button>
+          </div>
         </div>
-
-        <!-- Formulário Wizard -->
-        <form id="wizardForm" class="space-y-6">
-          <!-- Etapa 1: Utilização -->
-          <div class="step active" id="step1">
-            <h2 class="text-2xl font-semibold mb-4">
-              Utilização Principal
-              <span class="tooltip text-blue-500"
-                >ℹ️
-                <span class="tooltiptext"
-                  >Selecione o ambiente principal de uso: culto, estúdio,
-                  performance ou uso doméstico.</span
-                >
-              </span>
-            </h2>
-            <select
-              id="utilizacao"
-              class="w-full p-4 border rounded-lg focus:ring-4 focus:ring-blue-600"
-            >
+        
+        <!-- Etapa 2: Polifonia -->
+        <div class="step" id="step2">
+          <h2 class="text-2xl font-semibold mb-4">
+            Polifonia 
+            <span class="tooltip text-blue-500">ℹ️
+              <span class="tooltiptext">Número de notas simultâneas. Músicas complexas exigem polifonia mais alta.</span>
+            </span>
+          </h2>
+          <input id="polifonia" type="number" min="0" placeholder="Número mínimo de notas simultâneas" class="w-full p-3 border rounded-lg focus:ring-4 focus:ring-blue-600">
+          <div class="mt-4 flex justify-between">
+            <button type="button" class="bg-blue-600 text-white py-2 px-6 rounded hover:bg-blue-700" onclick="prevStep(2)">Voltar</button>
+            <button type="button" class="bg-blue-600 text-white py-2 px-6 rounded hover:bg-blue-700" onclick="nextStep(2)">Próximo</button>
+          </div>
+        </div>
+        
+        <!-- Etapa 3: Características das Teclas -->
+        <div class="step" id="step3">
+          <h2 class="text-2xl font-semibold mb-4">
+            Características das Teclas 
+            <span class="tooltip text-blue-500">ℹ️
+              <span class="tooltiptext">Informe o número de oitavas e o tipo de tecla (leve, semi-pesada, pesada).</span>
+            </span>
+          </h2>
+          <div class="mb-4">
+            <label class="block text-left mb-1">Número de Oitavas:</label>
+            <select id="oitavas" class="w-full p-3 border rounded-lg focus:ring-4 focus:ring-blue-600">
               <option value="todos">Todos</option>
-              <option value="igreja">Culto / Igreja</option>
-              <option value="estudio">Estúdio / Produção</option>
-              <option value="live">Performance ao vivo</option>
-              <option value="home">Uso doméstico</option>
+              <option value="1">1 Oitava</option>
+              <option value="2">2 Oitavas</option>
+              <option value="3">3 Oitavas</option>
+              <option value="mais">Mais de 3</option>
             </select>
-            <div class="mt-4 flex justify-end">
-              <button
-                type="button"
-                class="bg-blue-600 text-white py-2 px-6 rounded hover:bg-blue-700"
-                onclick="nextStep(1)"
-              >
-                Próximo
-              </button>
-            </div>
           </div>
-
-          <!-- Etapa 2: Polifonia -->
-          <div class="step" id="step2">
-            <h2 class="text-2xl font-semibold mb-4">
-              Polifonia
-              <span class="tooltip text-blue-500"
-                >ℹ️
-                <span class="tooltiptext"
-                  >Número de notas simultâneas. Músicas complexas exigem
-                  polifonia mais alta.</span
-                >
-              </span>
-            </h2>
-            <input
-              id="polifonia"
-              type="number"
-              min="0"
-              placeholder="Número mínimo de notas simultâneas"
-              class="w-full p-3 border rounded-lg focus:ring-4 focus:ring-blue-600"
-            />
-            <div class="mt-4 flex justify-between">
-              <button
-                type="button"
-                class="bg-blue-600 text-white py-2 px-6 rounded hover:bg-blue-700"
-                onclick="prevStep(2)"
-              >
-                Voltar
-              </button>
-              <button
-                type="button"
-                class="bg-blue-600 text-white py-2 px-6 rounded hover:bg-blue-700"
-                onclick="nextStep(2)"
-              >
-                Próximo
-              </button>
-            </div>
+          <div class="mb-4">
+            <label class="block text-left mb-1">Tipo de Tecla:</label>
+            <select id="tipoTecla" class="w-full p-3 border rounded-lg focus:ring-4 focus:ring-blue-600">
+              <option value="todos">Todos</option>
+              <option value="leve">Leve</option>
+              <option value="semi-pesada">Semi-pesada</option>
+              <option value="pesada">Pesada</option>
+            </select>
           </div>
-
-          <!-- Etapa 3: Características das Teclas -->
-          <div class="step" id="step3">
-            <h2 class="text-2xl font-semibold mb-4">
-              Características das Teclas
-              <span class="tooltip text-blue-500"
-                >ℹ️
-                <span class="tooltiptext"
-                  >Informe o número de oitavas e o tipo de tecla (leve,
-                  semi-pesada, pesada).</span
-                >
-              </span>
-            </h2>
-            <div class="mb-4">
-              <label class="block text-left mb-1">Número de Oitavas:</label>
-              <select
-                id="oitavas"
-                class="w-full p-3 border rounded-lg focus:ring-4 focus:ring-blue-600"
-              >
-                <option value="todos">Todos</option>
-                <option value="1">1 Oitava</option>
-                <option value="2">2 Oitavas</option>
-                <option value="3">3 Oitavas</option>
-                <option value="mais">Mais de 3</option>
-              </select>
-            </div>
-            <div class="mb-4">
-              <label class="block text-left mb-1">Tipo de Tecla:</label>
-              <select
-                id="tipoTecla"
-                class="w-full p-3 border rounded-lg focus:ring-4 focus:ring-blue-600"
-              >
-                <option value="todos">Todos</option>
-                <option value="leve">Leve</option>
-                <option value="semi-pesada">Semi-pesada</option>
-                <option value="pesada">Pesada</option>
-              </select>
-            </div>
-            <div class="flex justify-between">
-              <button
-                type="button"
-                class="bg-blue-600 text-white py-2 px-6 rounded hover:bg-blue-700"
-                onclick="prevStep(3)"
-              >
-                Voltar
-              </button>
-              <button
-                type="button"
-                class="bg-blue-600 text-white py-2 px-6 rounded hover:bg-blue-700"
-                onclick="nextStep(3)"
-              >
-                Próximo
-              </button>
-            </div>
+          <div class="flex justify-between">
+            <button type="button" class="bg-blue-600 text-white py-2 px-6 rounded hover:bg-blue-700" onclick="prevStep(3)">Voltar</button>
+            <button type="button" class="bg-blue-600 text-white py-2 px-6 rounded hover:bg-blue-700" onclick="nextStep(3)">Próximo</button>
           </div>
-
-          <!-- Etapa 4: Conexões e Controles -->
-          <div class="step" id="step4">
-            <h2 class="text-2xl font-semibold mb-4">
-              Conexões e Controles
-              <span class="tooltip text-blue-500"
-                >ℹ️
-                <span class="tooltiptext"
-                  >Informe as conexões (ex: USB, MIDI, Entrada para Pedal) e os
-                  controles (ex: 8 knobs, 16 pads).</span
-                >
-              </span>
-            </h2>
-            <div class="mb-4">
-              <label class="block text-left mb-1">Conexões essenciais:</label>
-              <input
-                id="conexoes"
-                type="text"
-                placeholder="Ex: USB, MIDI, Entrada para Pedal"
-                class="w-full p-3 border rounded-lg focus:ring-4 focus:ring-blue-600"
-              />
-            </div>
-            <div class="mb-4">
-              <label class="block text-left mb-1"
-                >Controles (knobs, pads, faders, botões):</label
-              >
-              <input
-                id="controles"
-                type="text"
-                placeholder="Ex: 8 knobs, 16 pads"
-                class="w-full p-3 border rounded-lg focus:ring-4 focus:ring-blue-600"
-              />
-            </div>
-            <div class="flex justify-between">
-              <button
-                type="button"
-                class="bg-blue-600 text-white py-2 px-6 rounded hover:bg-blue-700"
-                onclick="prevStep(4)"
-              >
-                Voltar
-              </button>
-              <button
-                type="button"
-                class="bg-blue-600 text-white py-2 px-6 rounded hover:bg-blue-700"
-                onclick="nextStep(4)"
-              >
-                Próximo
-              </button>
-            </div>
+        </div>
+        
+        <!-- Etapa 4: Conexões e Controles -->
+        <div class="step" id="step4">
+          <h2 class="text-2xl font-semibold mb-4">
+            Conexões e Controles 
+            <span class="tooltip text-blue-500">ℹ️
+              <span class="tooltiptext">Informe as conexões (ex: USB, MIDI, Entrada para Pedal) e os controles (ex: 8 knobs, 16 pads).</span>
+            </span>
+          </h2>
+          <div class="mb-4">
+            <label class="block text-left mb-1">Conexões essenciais:</label>
+            <input id="conexoes" type="text" placeholder="Ex: USB, MIDI, Entrada para Pedal" class="w-full p-3 border rounded-lg focus:ring-4 focus:ring-blue-600">
           </div>
-
-          <!-- Etapa 5: Portabilidade -->
-          <div class="step" id="step5">
-            <h2 class="text-2xl font-semibold mb-4">
-              Portabilidade
-              <span class="tooltip text-blue-500"
-                >ℹ️
-                <span class="tooltiptext"
-                  >Informe o peso máximo desejado (kg). Atenção: alguns
-                  equipamentos podem exigir acessórios extras para
-                  funcionar.</span
-                >
-              </span>
-            </h2>
-            <div class="mb-4">
-              <label class="block text-left mb-1"
-                >Peso máximo desejado (kg):</label
-              >
-              <input
-                id="peso"
-                type="number"
-                placeholder="Ex: 10"
-                class="w-full p-3 border rounded-lg focus:ring-4 focus:ring-blue-600"
-              />
-            </div>
-            <div class="flex justify-between">
-              <button
-                type="button"
-                class="bg-blue-600 text-white py-2 px-6 rounded hover:bg-blue-700"
-                onclick="prevStep(5)"
-              >
-                Voltar
-              </button>
-              <button
-                type="button"
-                class="bg-blue-600 text-white py-2 px-6 rounded hover:bg-blue-700"
-                onclick="submitForm()"
-              >
-                Ver Recomendações
-              </button>
-            </div>
+          <div class="mb-4">
+            <label class="block text-left mb-1">Controles (knobs, pads, faders, botões):</label>
+            <input id="controles" type="text" placeholder="Ex: 8 knobs, 16 pads" class="w-full p-3 border rounded-lg focus:ring-4 focus:ring-blue-600">
           </div>
-        </form>
-
-        <!-- Área de Resultados -->
-        <div
-          id="resultado"
-          class="mt-6 p-5 bg-gray-100 shadow-md rounded-xl text-left text-gray-800 hidden border border-gray-300"
-        ></div>
-
-        <!-- Botão de Logout -->
-        <button
-          id="logoutBtn"
-          class="mt-4 bg-red-600 text-white py-2 px-6 rounded hover:bg-red-700"
-        >
-          Logout
-        </button>
-      </div>
+          <div class="flex justify-between">
+            <button type="button" class="bg-blue-600 text-white py-2 px-6 rounded hover:bg-blue-700" onclick="prevStep(4)">Voltar</button>
+            <button type="button" class="bg-blue-600 text-white py-2 px-6 rounded hover:bg-blue-700" onclick="nextStep(4)">Próximo</button>
+          </div>
+        </div>
+        
+        <!-- Etapa 5: Portabilidade -->
+        <div class="step" id="step5">
+          <h2 class="text-2xl font-semibold mb-4">
+            Portabilidade 
+            <span class="tooltip text-blue-500">ℹ️
+              <span class="tooltiptext">Informe o peso máximo desejado (kg). Atenção: alguns equipamentos podem exigir acessórios extras para funcionar.</span>
+            </span>
+          </h2>
+          <div class="mb-4">
+            <label class="block text-left mb-1">Peso máximo desejado (kg):</label>
+            <input id="peso" type="number" placeholder="Ex: 10" class="w-full p-3 border rounded-lg focus:ring-4 focus:ring-blue-600">
+          </div>
+          <div class="flex justify-between">
+            <button type="button" class="bg-blue-600 text-white py-2 px-6 rounded hover:bg-blue-700" onclick="prevStep(5)">Voltar</button>
+            <button type="button" class="bg-blue-600 text-white py-2 px-6 rounded hover:bg-blue-700" onclick="submitForm()">Ver Recomendações</button>
+          </div>
+        </div>
+      </form>
+      
+      <!-- Área de Resultados -->
+      <div id="resultado" class="mt-6 p-5 bg-gray-100 shadow-md rounded-xl text-left text-gray-800 hidden border border-gray-300"></div>
+      
+      <!-- Botão de Logout -->
+      <button id="logoutBtn" class="mt-4 bg-red-600 text-white py-2 px-6 rounded hover:bg-red-700">Logout</button>
     </div>
+  </div>
 
-    <!-- Firebase SDK e Scripts (usando módulo) -->
-    <script type="module">
-      // Importações do Firebase
-      import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-app.js";
-      import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-analytics.js";
-      import {
-        getAuth,
-        signInWithEmailAndPassword,
-        createUserWithEmailAndPassword,
-        signOut,
-        onAuthStateChanged,
-      } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-auth.js";
-      import {
-        getFirestore,
-        doc,
-        setDoc,
-        serverTimestamp,
-      } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-firestore.js";
+  <!-- Firebase SDK e Scripts (usando módulo) -->
+  <script type="module">
+    // Importações do Firebase
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-app.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-analytics.js";
+    import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-auth.js";
+    import { getFirestore, doc, setDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-firestore.js";
 
-      // Configuração do Firebase conforme seu snippet
-      const firebaseConfig = {
-        apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
-        authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
-        projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
-        storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
-        messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
-        appId: import.meta.env.VITE_FIREBASE_APP_ID,
-        measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID,
-      };
+    // Configuração do Firebase conforme seu snippet
+    const firebaseConfig = {
+      apiKey: "AIzaSyBZtOrKtc1ZOks5Y4gsy2oizKnzpJi36gQ",
+      authDomain: "tecladista-pro.firebaseapp.com",
+      projectId: "tecladista-pro",
+      storageBucket: "tecladista-pro.firebasestorage.app",
+      messagingSenderId: "386557511953",
+      appId: "1:386557511953:web:5e2583cb582aaba77ce4b0",
+      measurementId: "G-0751EWEK4Z"
+    };
 
-      // Inicialização do Firebase
-      const app = initializeApp(firebaseConfig);
-      const analytics = getAnalytics(app);
-      const auth = getAuth(app);
-      const db = getFirestore(app);
+    // Inicialização do Firebase
+    const app = initializeApp(firebaseConfig);
+    const analytics = getAnalytics(app);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
 
-      // Referências aos elementos DOM para login, cadastro e wizard
-      const loginDiv = document.getElementById("loginDiv");
-      const signUpDiv = document.getElementById("signUpDiv");
-      const wizardDiv = document.getElementById("wizardDiv");
+    // Referências aos elementos DOM para login, cadastro e wizard
+    const loginDiv = document.getElementById("loginDiv");
+    const signUpDiv = document.getElementById("signUpDiv");
+    const wizardDiv = document.getElementById("wizardDiv");
 
-      // Alternar entre login e cadastro
-      document.getElementById("showSignUp").addEventListener("click", () => {
-        loginDiv.classList.add("hidden");
-        signUpDiv.classList.remove("hidden");
-      });
-      document.getElementById("showLogin").addEventListener("click", () => {
-        signUpDiv.classList.add("hidden");
-        loginDiv.classList.remove("hidden");
-      });
+    // Alternar entre login e cadastro
+    document.getElementById("showSignUp").addEventListener("click", () => {
+      loginDiv.classList.add("hidden");
+      signUpDiv.classList.remove("hidden");
+    });
+    document.getElementById("showLogin").addEventListener("click", () => {
+      signUpDiv.classList.add("hidden");
+      loginDiv.classList.remove("hidden");
+    });
 
-      // Login
-      document.getElementById("loginForm").addEventListener("submit", (e) => {
-        e.preventDefault();
-        const email = document.getElementById("email").value;
-        const password = document.getElementById("password").value;
-        signInWithEmailAndPassword(auth, email, password)
-          .then((userCredential) => {
-            loginDiv.classList.add("hidden");
-            wizardDiv.classList.remove("hidden");
-          })
-          .catch((error) => {
-            alert("Erro no login: " + error.message);
-          });
-      });
-
-      // Cadastro
-      document.getElementById("signUpForm").addEventListener("submit", (e) => {
-        e.preventDefault();
-        const email = document.getElementById("signUpEmail").value;
-        const password = document.getElementById("signUpPassword").value;
-        createUserWithEmailAndPassword(auth, email, password)
-          .then((userCredential) => {
-            signUpDiv.classList.add("hidden");
-            wizardDiv.classList.remove("hidden");
-          })
-          .catch((error) => {
-            alert("Erro no cadastro: " + error.message);
-          });
-      });
-
-      // Logout
-      document.getElementById("logoutBtn").addEventListener("click", () => {
-        signOut(auth)
-          .then(() => {
-            wizardDiv.classList.add("hidden");
-            loginDiv.classList.remove("hidden");
-          })
-          .catch((error) => {
-            alert("Erro no logout: " + error.message);
-          });
-      });
-
-      // Monitorar estado do usuário
-      onAuthStateChanged(auth, (user) => {
-        if (user) {
+    // Login
+    document.getElementById("loginForm").addEventListener("submit", (e) => {
+      e.preventDefault();
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
+      signInWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
           loginDiv.classList.add("hidden");
+          wizardDiv.classList.remove("hidden");
+        })
+        .catch((error) => {
+          alert("Erro no login: " + error.message);
+        });
+    });
+
+    // Cadastro
+    document.getElementById("signUpForm").addEventListener("submit", (e) => {
+      e.preventDefault();
+      const email = document.getElementById("signUpEmail").value;
+      const password = document.getElementById("signUpPassword").value;
+      createUserWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
           signUpDiv.classList.add("hidden");
           wizardDiv.classList.remove("hidden");
-        } else {
+        })
+        .catch((error) => {
+          alert("Erro no cadastro: " + error.message);
+        });
+    });
+
+    // Logout
+    document.getElementById("logoutBtn").addEventListener("click", () => {
+      signOut(auth)
+        .then(() => {
           wizardDiv.classList.add("hidden");
           loginDiv.classList.remove("hidden");
+        })
+        .catch((error) => {
+          alert("Erro no logout: " + error.message);
+        });
+    });
+
+    // Monitorar estado do usuário
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        loginDiv.classList.add("hidden");
+        signUpDiv.classList.add("hidden");
+        wizardDiv.classList.remove("hidden");
+      } else {
+        wizardDiv.classList.add("hidden");
+        loginDiv.classList.remove("hidden");
+      }
+    });
+
+    // Lógica do Wizard e filtragem
+    let currentStep = 1;
+    let equipamentos = [];
+
+    // Carrega o JSON estático com os equipamentos
+    fetch('teclados.json')
+      .then(response => response.json())
+      .then(data => {
+        equipamentos = data.equipamentos;
+        console.log("Banco de dados carregado:", equipamentos);
+      })
+      .catch(error => console.error("Erro ao carregar o JSON:", error));
+
+    // Atualiza a barra de progresso
+    function updateProgress(step) {
+      const progress = document.getElementById('progress');
+      const percent = (step / 5) * 100;
+      progress.style.width = percent + '%';
+    }
+
+    function showStep(step) {
+      document.querySelectorAll('.step').forEach((elem, index) => {
+        elem.classList.remove('active');
+        if (index + 1 === step) {
+          elem.classList.add('active');
         }
       });
+      updateProgress(step);
+    }
 
-      // Lógica do Wizard e filtragem
-      let currentStep = 1;
-      let equipamentos = [];
+    function nextStep(step) {
+      currentStep = step + 1;
+      showStep(currentStep);
+    }
 
-      // Carrega o JSON estático com os equipamentos
-      fetch("teclados.json")
-        .then((response) => response.json())
-        .then((data) => {
-          equipamentos = data.equipamentos;
-          console.log("Banco de dados carregado:", equipamentos);
-        })
-        .catch((error) => console.error("Erro ao carregar o JSON:", error));
+    function prevStep(step) {
+      currentStep = step - 1;
+      showStep(currentStep);
+    }
 
-      // Atualiza a barra de progresso
-      function updateProgress(step) {
-        const progress = document.getElementById("progress");
-        const percent = (step / 5) * 100;
-        progress.style.width = percent + "%";
+    // Função de pontuação para cada equipamento com base nos filtros
+    function pontuarEquipamento(equip, filtros) {
+      let pontos = 0;
+      if (filtros.utilizacao === "todos" || (equip.utilizacoes && equip.utilizacoes.includes(filtros.utilizacao))) pontos += 2;
+      if (filtros.polifonia > 0 && equip.polifonia >= filtros.polifonia) pontos += 1;
+      if (filtros.oitavas !== "todos") {
+        if (filtros.oitavas === "mais" && equip.oitavas > 3) pontos += 1;
+        else if (parseInt(filtros.oitavas) === equip.oitavas) pontos += 1;
+      } else {
+        pontos += 1;
+      }
+      if (filtros.tipoTecla === "todos" || equip.tipoTecla === filtros.tipoTecla) pontos += 1;
+      filtros.conexoes.forEach(req => {
+        if (equip.conexoes.some(conn => conn.toLowerCase().includes(req))) pontos += 1;
+      });
+      filtros.controles.forEach(req => {
+        const controlesEquip = Object.entries(equip.controles).map(([tipo, qtd]) => ${tipo} ${qtd});
+        if (controlesEquip.some(ctrl => ctrl.includes(req))) pontos += 1;
+      });
+      if (equip.peso <= filtros.pesoMax) pontos += 1;
+      return pontos;
+    }
+
+    function submitForm() {
+      const utilizacao = document.getElementById('utilizacao').value;
+      const polifonia = parseInt(document.getElementById('polifonia').value) || 0;
+      const oitavas = document.getElementById('oitavas').value;
+      const tipoTecla = document.getElementById('tipoTecla').value;
+      const conexoesInput = document.getElementById('conexoes').value;
+      const controlesInput = document.getElementById('controles').value;
+      const pesoMax = parseFloat(document.getElementById('peso').value) || Infinity;
+
+      const conexoesReq = conexoesInput ? conexoesInput.toLowerCase().split(',').map(s => s.trim()) : [];
+      const controlesReq = controlesInput ? controlesInput.toLowerCase().split(',').map(s => s.trim()) : [];
+
+      const filtros = {
+        utilizacao,
+        polifonia,
+        oitavas,
+        tipoTecla,
+        conexoes: conexoesReq,
+        controles: controlesReq,
+        pesoMax
+      };
+
+      const equipamentosPontuados = equipamentos.map(equip => {
+        const pontos = pontuarEquipamento(equip, filtros);
+        return { equip, pontos };
+      });
+      equipamentosPontuados.sort((a, b) => b.pontos - a.pontos);
+      const filtrados = equipamentosPontuados.filter(item => item.pontos > 0);
+
+      // Salva as escolhas do usuário no Firestore
+      const user = auth.currentUser;
+      if (user) {
+        const userDoc = doc(db, "usuarios", user.uid);
+        setDoc(userDoc, { filtros: filtros, timestamp: serverTimestamp() }, { merge: true })
+          .then(() => {
+            console.log("Preferências salvas com sucesso!");
+          })
+          .catch(error => {
+            console.error("Erro ao salvar as preferências: ", error);
+          });
       }
 
-      function showStep(step) {
-        document.querySelectorAll(".step").forEach((elem, index) => {
-          elem.classList.remove("active");
-          if (index + 1 === step) {
-            elem.classList.add("active");
-          }
-        });
-        updateProgress(step);
-      }
-
-      function nextStep(step) {
-        currentStep = step + 1;
-        showStep(currentStep);
-      }
-
-      function prevStep(step) {
-        currentStep = step - 1;
-        showStep(currentStep);
-      }
-
-      // Função de pontuação para cada equipamento com base nos filtros
-      function pontuarEquipamento(equip, filtros) {
-        let pontos = 0;
-        if (
-          filtros.utilizacao === "todos" ||
-          (equip.utilizacoes && equip.utilizacoes.includes(filtros.utilizacao))
-        )
-          pontos += 2;
-        if (filtros.polifonia > 0 && equip.polifonia >= filtros.polifonia)
-          pontos += 1;
-        if (filtros.oitavas !== "todos") {
-          if (filtros.oitavas === "mais" && equip.oitavas > 3) pontos += 1;
-          else if (parseInt(filtros.oitavas) === equip.oitavas) pontos += 1;
-        } else {
-          pontos += 1;
-        }
-        if (
-          filtros.tipoTecla === "todos" ||
-          equip.tipoTecla === filtros.tipoTecla
-        )
-          pontos += 1;
-        filtros.conexoes.forEach((req) => {
-          if (equip.conexoes.some((conn) => conn.toLowerCase().includes(req)))
-            pontos += 1;
-        });
-        filtros.controles.forEach((req) => {
-          const controlesEquip = Object.entries(equip.controles).map(
-            ([tipo, qtd]) => `${tipo} ${qtd}`
-          );
-          if (controlesEquip.some((ctrl) => ctrl.includes(req))) pontos += 1;
-        });
-        if (equip.peso <= filtros.pesoMax) pontos += 1;
-        return pontos;
-      }
-
-      function submitForm() {
-        const utilizacao = document.getElementById("utilizacao").value;
-        const polifonia =
-          parseInt(document.getElementById("polifonia").value) || 0;
-        const oitavas = document.getElementById("oitavas").value;
-        const tipoTecla = document.getElementById("tipoTecla").value;
-        const conexoesInput = document.getElementById("conexoes").value;
-        const controlesInput = document.getElementById("controles").value;
-        const pesoMax =
-          parseFloat(document.getElementById("peso").value) || Infinity;
-
-        const conexoesReq = conexoesInput
-          ? conexoesInput
-              .toLowerCase()
-              .split(",")
-              .map((s) => s.trim())
-          : [];
-        const controlesReq = controlesInput
-          ? controlesInput
-              .toLowerCase()
-              .split(",")
-              .map((s) => s.trim())
-          : [];
-
-        const filtros = {
-          utilizacao,
-          polifonia,
-          oitavas,
-          tipoTecla,
-          conexoes: conexoesReq,
-          controles: controlesReq,
-          pesoMax,
-        };
-
-        const equipamentosPontuados = equipamentos.map((equip) => {
-          const pontos = pontuarEquipamento(equip, filtros);
-          return { equip, pontos };
-        });
-        equipamentosPontuados.sort((a, b) => b.pontos - a.pontos);
-        const filtrados = equipamentosPontuados.filter(
-          (item) => item.pontos > 0
-        );
-
-        // Salva as escolhas do usuário no Firestore
-        const user = auth.currentUser;
-        if (user) {
-          const userDoc = doc(db, "usuarios", user.uid);
-          setDoc(
-            userDoc,
-            { filtros: filtros, timestamp: serverTimestamp() },
-            { merge: true }
-          )
-            .then(() => {
-              console.log("Preferências salvas com sucesso!");
-            })
-            .catch((error) => {
-              console.error("Erro ao salvar as preferências: ", error);
-            });
-        }
-
-        const resultadoDiv = document.getElementById("resultado");
-        if (filtrados.length > 0) {
-          const html = filtrados
-            .map((item) => {
-              const equip = item.equip;
-              return `
+      const resultadoDiv = document.getElementById('resultado');
+      if (filtrados.length > 0) {
+        const html = filtrados.map(item => {
+          const equip = item.equip;
+          return 
             <div class="mb-6 p-4 border rounded-lg shadow">
               <h2 class="text-2xl font-bold text-blue-800">${equip.nome}</h2>
               <p class="text-gray-600"><strong>Tipo:</strong> ${equip.tipo}</p>
-              <p class="text-gray-600"><strong>Utilizações:</strong> ${equip.utilizacoes.join(
-                ", "
-              )}</p>
-              <p class="text-gray-600"><strong>Polifonia:</strong> ${
-                equip.polifonia
-              } notas</p>
-              <p class="text-gray-600"><strong>Oitavas:</strong> ${
-                equip.oitavas
-              }</p>
-              <p class="text-gray-600"><strong>Tipo de Tecla:</strong> ${
-                equip.tipoTecla
-              }</p>
-              <p class="text-gray-600"><strong>Conexões:</strong> ${equip.conexoes.join(
-                ", "
-              )}</p>
-              <p class="text-gray-600"><strong>Controles:</strong> ${Object.entries(
-                equip.controles
-              )
-                .map(([tipo, qtd]) => tipo + ": " + qtd)
-                .join(", ")}</p>
-              <p class="text-gray-600"><strong>Peso:</strong> ${
-                equip.peso
-              } kg</p>
-              <p class="text-gray-600"><strong>Observações:</strong> ${
-                equip.observacoes
-              }</p>
-              <p class="text-sm text-green-700 font-semibold">Pontuação: ${
-                item.pontos
-              }</p>
+              <p class="text-gray-600"><strong>Utilizações:</strong> ${equip.utilizacoes.join(', ')}</p>
+              <p class="text-gray-600"><strong>Polifonia:</strong> ${equip.polifonia} notas</p>
+              <p class="text-gray-600"><strong>Oitavas:</strong> ${equip.oitavas}</p>
+              <p class="text-gray-600"><strong>Tipo de Tecla:</strong> ${equip.tipoTecla}</p>
+              <p class="text-gray-600"><strong>Conexões:</strong> ${equip.conexoes.join(', ')}</p>
+              <p class="text-gray-600"><strong>Controles:</strong> ${Object.entries(equip.controles).map(([tipo, qtd]) => tipo + ": " + qtd).join(', ')}</p>
+              <p class="text-gray-600"><strong>Peso:</strong> ${equip.peso} kg</p>
+              <p class="text-gray-600"><strong>Observações:</strong> ${equip.observacoes}</p>
+              <p class="text-sm text-green-700 font-semibold">Pontuação: ${item.pontos}</p>
             </div>
-          `;
-            })
-            .join("");
-          resultadoDiv.innerHTML = html;
-        } else {
-          resultadoDiv.innerHTML = `<p class="text-center text-gray-600">Nenhum equipamento encontrado que atenda aos critérios selecionados. Tente ajustar alguns filtros.</p>`;
-        }
-        resultadoDiv.classList.remove("hidden");
+          ;
+        }).join('');
+        resultadoDiv.innerHTML = html;
+      } else {
+        resultadoDiv.innerHTML = <p class="text-center text-gray-600">Nenhum equipamento encontrado que atenda aos critérios selecionados. Tente ajustar alguns filtros.</p>;
       }
-    </script>
-  </body>
+      resultadoDiv.classList.remove('hidden');
+    }
+  </script>
+</body>
 </html>
